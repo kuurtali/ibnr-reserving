@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Uretilen ciktilar
+*_IBNR_*.xlsx
+cikti/
+out/
+
+# GERCEK VERI ASLA DEPOYA GIRMEZ.
+# Ornek veri (data/ornek_hasar.xlsx) bilerek haric tutulmustur -
+# sentetiktir ve commit edilir.
+hasar_*.xlsx
+*_gercek.xlsx
+_yerel/
+
+# Isletim sistemi / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
