@@ -1,6 +1,6 @@
 # IBNR Reserving
 
-![Tests](https://img.shields.io/badge/tests-14-brightgreen)
+![Tests](https://img.shields.io/badge/tests-21-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10+-3776AB?logo=python&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -77,6 +77,40 @@ ultimate equal to the last column, a larger tail increases the ultimate,
 out-of-diagonal cells stay zero, the tail estimator refuses non-decaying
 factors and respects its cap, and every input validator rejects bad input.
 
+### Validating against real triangles
+
+Synthetic data answers *"does the arithmetic work?"*. It cannot answer
+*"how accurate is the estimate?"* — for that you need triangles whose
+future is already known.
+
+The **CAS Loss Reserve Database** provides exactly that: Schedule P
+triangles for several hundred US insurers across six lines of business,
+**with the lower triangle included**, so each accident year's actual
+development is available. That turns the tool's estimate into something
+scoreable rather than merely plausible.
+
+```bash
+python3 data/cas_indir.py --brans ppauto        # download + convert
+python3 data/cas_indir.py --brans wkcomp --sirket 43
+```
+
+The converter maps CAS's cumulative paid and incurred columns onto the
+tool's record schema — paid becomes incremental rows, `incurred − paid`
+becomes the outstanding — and holds back the lower triangle as the answer
+key. `tests/test_cas_donusum.py` verifies the round trip: rebuilding
+`cumulative paid + outstanding` from the converted records reproduces the
+original incurred triangle exactly.
+
+One caveat, stated because it matters: CAS data is **annual**, this tool
+is quarterly. Accident years are mapped onto consecutive period codes, so
+the arithmetic is correct but the report labels one year as one "quarter".
+
+*Data source: [CAS Loss Reserving Data Pulled from NAIC Schedule
+P](https://www.casact.org/publications-research/research/research-resources/loss-reserving-data-pulled-naic-schedule-p),
+compiled for the CAS by S&P Global Market Intelligence; earlier sets
+compiled by Glenn G. Meyers and Peng Shi. Downloaded by the script above;
+not redistributed in this repository.*
+
 ---
 
 ## Running it
@@ -86,7 +120,7 @@ pip install -r requirements.txt
 
 python3 data/uret.py          # generate the synthetic sample
 python3 ibnr.py               # run (GUI if available, else CLI)
-pytest -q                     # 14 tests
+pytest -q                     # 21 tests
 ```
 
 Real data:
@@ -120,7 +154,9 @@ because it differs by source system.
 ibnr.py                       calculation, Excel report, UI
 data/uret.py                  synthetic claims generator
 data/ornek_hasar.xlsx         generated sample (committed)
-tests/test_chain_ladder.py    14 tests
+tests/test_chain_ladder.py    core: 14 tests
+tests/test_cas_donusum.py     CAS conversion: 7 tests
+data/cas_indir.py             CAS database downloader + converter
 ```
 
 ---

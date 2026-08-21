@@ -23,3 +23,7 @@ Thumbs.db
 .idea/
 .vscode/
 _cop/
+
+# CAS verisi indirilir, dagitilmaz
+data/cas_*.csv
+data/cas_*.xlsx
