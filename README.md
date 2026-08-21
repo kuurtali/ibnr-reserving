@@ -239,16 +239,30 @@ Code and comments are in Turkish; this README is in English.
 
 ---
 
-## Known gaps
+## What's missing, and what comes next
 
-Listed because they're true, not because they're about to be fixed:
+This is one method producing one number. The two things that would make it
+a complete reserving toolkit are known, and they're the same two things
+the professional syllabus asks for:
 
-- **No uncertainty measure.** Chain ladder gives a point estimate. The
-  obvious next step is the Mack (1993) standard error, then bootstrap ODP
-  for the full reserve distribution.
-- **One method.** Bornhuetter-Ferguson and Cape Cod are the standard
-  alternatives, and chain ladder is least stable exactly where they do
-  best — immature accident periods.
+**More than one method.** Chain ladder is least stable exactly where
+alternatives do best — immature accident periods, where one large late
+claim distorts the whole row.
+
+| | |
+|---|---|
+| **Bornhuetter-Ferguson** | blends chain ladder with an expected loss ratio; far steadier for young periods. Needs earned premium, which the CAS dataset already carries |
+| **Cape Cod** | derives that expected ratio from the data itself, so it needs no outside assumption |
+| **Munich Chain Ladder** | reconciles the paid and incurred triangles instead of picking one and ignoring the other |
+
+**A measure of uncertainty.** "IBNR is 12.4m" invites the question "how
+volatile?", and a point estimate can't answer it. The **Mack (1993)**
+standard error is the direct next step — distribution-free, and it builds
+on the link ratios already computed here. **Bootstrap ODP** after that,
+for the whole reserve distribution rather than a bound.
+
+Smaller, honest items:
+
 - **Single module.** Calculation, reporting and UI share one file.
 - **`veri_oku` raises `SystemExit`** on a data error, which is wrong for
   library code — the caller can't catch it. A test documents the current
