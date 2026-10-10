@@ -1,5 +1,8 @@
 # IBNR Reserving
 
+[Portfolio](https://github.com/kuurtali) · [Report an issue](https://github.com/kuurtali/ibnr-reserving/issues)
+
+
 ![Tests](https://img.shields.io/badge/tests-21-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10+-3776AB?logo=python&logoColor=white)
 ![Method](https://img.shields.io/badge/method-chain%20ladder-8957e5)
@@ -8,6 +11,8 @@
 A reserving tool for non-life insurance. It takes a claims table, builds
 **development triangles per line of business**, estimates ultimate losses
 and the IBNR reserve, and produces a reasoned Excel report.
+
+Here **incurred = paid + outstanding case reserves**. The reported IBNR is ultimate minus incurred; total unpaid loss reserves would be ultimate minus paid.
 
 > **Data policy.** This repository contains no real portfolio data and
 > cannot. Everything ships with synthetic data generated from a known
@@ -38,7 +43,7 @@ accident   ┌──────────────────────
            │ 1,250  1,815      ?        ?│   ← from link ratios
            │ 1,400      ?      ?        ?│
            └─────────────────────────────┘
-                                    ultimate − paid to date = IBNR
+                                    ultimate − incurred to date = IBNR
 ```
 
 ---
