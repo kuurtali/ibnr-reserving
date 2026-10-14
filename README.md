@@ -1,6 +1,6 @@
 # IBNR Reserving
 
-[Portfolio](https://github.com/kuurtali) · [Report an issue](https://github.com/kuurtali/ibnr-reserving/issues)
+[Portfolio](https://github.com/kuurtali) · [All projects](https://github.com/kuurtali#projects) · [Report an issue](https://github.com/kuurtali/ibnr-reserving/issues)
 
 
 ![Tests](https://img.shields.io/badge/tests-21-brightgreen)
